@@ -187,14 +187,32 @@ public class Parqueadero {
         }
         return 0;
     }
-    public void SacarVehiculo(){
+    
+    public void funcionej(){/*esta funcion es el ejemplo de menu que quiero 
+        hacer pero en el main entonces es solo para saber como quedaria*/
         Scanner leer = new Scanner(System.in);
         System.out.println("En que seccion se encuentra el vehiculo?");
         int numsec = leer.nextInt();
         numsec-=1;
+        //System.out.println(numsec); comprobar que si arrojo el numero deseado
         System.out.println("Placa del vehiculo?");
         String numplaca;
         numplaca = leer.next();
+        //System.out.println(numplaca); comprobar que si arrojo el numero deseado
+        /*ejecuta todas las funciones necesarias para realmente sacar el 
+        vehiculo, sin necesidad de sobrecargar ninguna, una notacion solo por 
+        buenas practicas, las funciones o metodos no se nombran con mayusculas, 
+        por ejemplo SacarVehiculo deberia ser sacarVehiculo*/
+        cuentaTiempo(numsec,numplaca); /* va de primero porque toca tener en 
+        cuenta que cuando se saque el vehiculo la seccion asignada a el quedara 
+        nula, por que toca trabajar con ella antes*/
+        SacarVehiculo(numsec,numplaca);
+        DevueltaVehiculoZonaTemporal(numsec);
+        
+    }
+    
+    
+    public void SacarVehiculo(int numsec, String numplaca){
         for (int i = 4+numsec; 0 < i; i--) {
             this.robot.move();
         }
@@ -238,10 +256,10 @@ public class Parqueadero {
                     }
                     this.robot.turnLeft();
                     LLevarZonaTemporal(numsec,i,this.seccion[i][numsec].getVehiculo());
-            }
-        }
-        DevueltaVehiculoZonaTemporal(numsec);
+                    } 
+                }
     }
+    
     public void DevueltaVehiculoZonaTemporal(int numsec){
         for (int i = 0; i < 3; i++) {
             this.robot.turnLeft();
@@ -338,4 +356,9 @@ public class Parqueadero {
                 }
             }
     }
+    
+    public void cuentaTiempo(int numsec, String numplaca){
+        
+    }
 }
+

@@ -15,9 +15,7 @@ public class Main {
         Scanner leer = new Scanner(System.in);
         Parqueadero parqueadero = new Parqueadero();
         parqueadero.IngresarVehiculo();
-        parqueadero.IngresarVehiculo();
-        parqueadero.IngresarVehiculo();
-        parqueadero.IngresarVehiculo();
-        parqueadero.SacarVehiculo();
+        parqueadero.SacarVehiculo(bueno me falta rellenar esto);
     }
 }
+//necesitamos hacer un menu
