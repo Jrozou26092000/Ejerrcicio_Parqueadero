@@ -35,10 +35,17 @@ public class Main {
                     System.out.println("Placa del vehiculo?");
                     String numplaca;
                     numplaca = leer.next();
+                    System.out.println("Cual es la hora de salida?");
+                    System.out.println("Hora:");
+                    int hora;
+                    hora = leer.nextInt();
+                    System.out.println("Minuto:");
+                    int minuto;
+                    minuto = leer.nextInt();
                     System.out.println("Cual es el costo por minuto en el parqueadero?");
                     double costoMinuto;
                     costoMinuto = leer.nextDouble();
-                    parqueadero.cuentaTiempo(numsec,numplaca,costoMinuto); 
+                    parqueadero.cuentaTiempo(numsec,numplaca,costoMinuto,hora,minuto); 
                     parqueadero.SacarVehiculo(numsec,numplaca);
                     parqueadero.DevueltaVehiculoZonaTemporal(numsec);
                     break;

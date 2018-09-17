@@ -40,19 +40,9 @@ public class Parqueadero {
             Wall pared = new Wall(ciudad, 5, i, Direction.NORTH);
         }
         Wall pared = new Wall(ciudad, 5, 7, Direction.EAST);
-        Thing thing = new Thing(ciudad, 6, 7);
-        Thing thing1 = new Thing(ciudad, 6, 7);
-        Thing thing2 = new Thing(ciudad, 6, 7);
-        Thing thing3 = new Thing(ciudad, 6, 7);
-        /*Thing thing1 = new Thing(ciudad, 3, 2);
-        Thing thing2 = new Thing(ciudad, 1, 3);
-        Thing thing3 = new Thing(ciudad, 3, 3);
-        Thing thing4 = new Thing(ciudad, 4, 2);
-        Thing thing5 = new Thing(ciudad, 1, 1);
-        Thing thing6 = new Thing(ciudad, 4, 3);
-        Thing thing7 = new Thing(ciudad, 4, 2);
-        Thing thing8 = new Thing(ciudad, 5, 1);
-        Thing thing9 = new Thing(ciudad, 2, 2);*/
+        for (int i = 0; i < 20; i++) {
+            Thing thing = new Thing(this.ciudad, 6, 7);
+        }
         this.ingreso = 0;
     }
 
@@ -203,7 +193,7 @@ public class Parqueadero {
         }
         this.robot.move();
         int a = 0;
-        for (int i = 4; 0 <= 4; i--) {
+        for (int i = 4; 0 <= i; i--) {
             if(this.robot.canPickThing()==false){
                 this.robot.move();
                 a++;
@@ -253,7 +243,7 @@ public class Parqueadero {
         }
         this.robot.turnLeft();
         this.robot.turnLeft();
-        int c = 1;
+        int c = 5;
         for (int i = 0; i < 4; i++) {
             if(this.robot.canPickThing()==true){
                 this.robot.pickThing();
@@ -273,18 +263,22 @@ public class Parqueadero {
                 for (int j = 0; j < 3; j++) {
                     this.robot.turnLeft();
                 }
-                for (int j = 5-i; 0 < j; j--) {
+                //----------------
+                for (int j = c; 0 < j; j--) {
                     this.robot.move();
-                    Vehiculo vehiculo = this.temporal[4-i].getVehiculo();
-                    this.seccion[i][numsec] = new Seccion(vehiculo);
-                    this.temporal[4-i] = null;
                 }
+                this.robot.putThing();
+                Vehiculo vehiculo = this.temporal[3-i].getVehiculo();
+                this.seccion[c-1][numsec] = new Seccion(vehiculo);
+                this.temporal[3-i] = null;
+                c-=1;
                 for (int j = 0; j < 2; j++) {
                     this.robot.turnLeft();
                 }
-                for (int j = 5-i; 0 < j; j--) {
+                for (int j = c; 0 <= j; j--) {
                     this.robot.move();
                 }
+                this.robot.turnLeft();
                 for (int j = 4+numsec; 0 < j; j--) {
                     this.robot.move();
                 }
@@ -299,6 +293,13 @@ public class Parqueadero {
             }else{
                this.robot.move();
             }
+        }
+        for (int j = 0; j < 3; j++) {
+            this.robot.turnLeft();
+        }
+            this.robot.move();
+        for (int j = 0; j < 3; j++) {
+            this.robot.turnLeft();
         }
     }
 
@@ -348,36 +349,43 @@ public class Parqueadero {
             case 1:
                 for(int i = 0; i<5; i++){
                   if (this.seccion[i][0] != null){
-                      System.out.println(this.seccion[i][0].getVehiculo().getPlacas());
+                      System.out.println("En este lugar esta el vehiculo con placa: "+this.seccion[i][0].getVehiculo().getPlacas());
+                  }else{
+                      System.out.println("No hay ningun vehiculo en este lugar");
                   }
                 }
                 break;
             case 2:
                 for(int i = 0; i<5; i++){
                   if (this.seccion[i][1] != null){
-                      System.out.println(this.seccion[i][1].getVehiculo().getPlacas());
+                      System.out.println("En este lugar esta el vehiculo con placa: "+this.seccion[i][1].getVehiculo().getPlacas());
+                  }else{
+                      System.out.println("No hay ningun vehiculo en este lugar");
                   }
                 }
                 break;
             case 3:
                 for(int i = 0; i<5; i++){
                   if (this.seccion[i][2] != null){
-                      System.out.println(this.seccion[i][2].getVehiculo().getPlacas());
+                      System.out.println("En este lugar esta el vehiculo con placa: "+this.seccion[i][2].getVehiculo().getPlacas());
+                  }else{
+                      System.out.println("No hay ningun vehiculo en este lugar");
                   }
                 }
                 break;
             default:
                 System.out.println("Opcion no valida");
         }
-        
+
     }
     
-    public void cuentaTiempo(int numsec, String numplaca, double costoMinuto){
+    public void cuentaTiempo(int numsec, String numplaca, double costoMinuto, int hora, int minuto){
         for(int i = 0;i < 5;i++){
             if(this.seccion[i][numsec] != null){
                 if(this.seccion[i][numsec].getVehiculo().getPlacas().equals(numplaca)){
                     int minutos = this.seccion[i][numsec].getVehiculo().getIngreso().getHora()*60;
                     minutos += this.seccion[i][numsec].getVehiculo().getIngreso().getMinutos();
+                    minutos = (hora*0) + minuto - minutos;
                     double pago = minutos*costoMinuto;
                     this.ingreso += pago;
                     System.out.println("El total a pagar es: "+ pago);
@@ -385,5 +393,8 @@ public class Parqueadero {
             }
         }
     }
+    
 }
+
+
 
