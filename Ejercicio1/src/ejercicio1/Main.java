@@ -48,6 +48,8 @@ public class Main {
                 case 4:
                     System.out.println("Los ingresos totales son: " + parqueadero.getIngreso());
                     break;
+                case 0:
+                    break;
                 default:
                     System.out.println("Opción no valida");
                     break;
