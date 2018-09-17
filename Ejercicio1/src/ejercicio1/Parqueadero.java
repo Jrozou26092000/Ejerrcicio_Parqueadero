@@ -16,6 +16,7 @@ public class Parqueadero {
     private Temporal[] temporal;
     private Robot robot;
     private City ciudad;
+    private double ingreso;
     
     public Parqueadero() {
        this.seccion = new Seccion[5][3];
@@ -52,6 +53,11 @@ public class Parqueadero {
         Thing thing7 = new Thing(ciudad, 4, 2);
         Thing thing8 = new Thing(ciudad, 5, 1);
         Thing thing9 = new Thing(ciudad, 2, 2);*/
+        this.ingreso = 0;
+    }
+
+    public double getIngreso() {
+        return ingreso;
     }
     
     public void IngresarVehiculo() {
@@ -187,30 +193,6 @@ public class Parqueadero {
         }
         return 0;
     }
-    
-    public void funcionej(){/*esta funcion es el ejemplo de menu que quiero 
-        hacer pero en el main entonces es solo para saber como quedaria*/
-        Scanner leer = new Scanner(System.in);
-        System.out.println("En que seccion se encuentra el vehiculo?");
-        int numsec = leer.nextInt();
-        numsec-=1;
-        //System.out.println(numsec); comprobar que si arrojo el numero deseado
-        System.out.println("Placa del vehiculo?");
-        String numplaca;
-        numplaca = leer.next();
-        //System.out.println(numplaca); comprobar que si arrojo el numero deseado
-        /*ejecuta todas las funciones necesarias para realmente sacar el 
-        vehiculo, sin necesidad de sobrecargar ninguna, una notacion solo por 
-        buenas practicas, las funciones o metodos no se nombran con mayusculas, 
-        por ejemplo SacarVehiculo deberia ser sacarVehiculo*/
-        cuentaTiempo(numsec,numplaca); /* va de primero porque toca tener en 
-        cuenta que cuando se saque el vehiculo la seccion asignada a el quedara 
-        nula, por que toca trabajar con ella antes*/
-        SacarVehiculo(numsec,numplaca);
-        DevueltaVehiculoZonaTemporal(numsec);
-        
-    }
-    
     
     public void SacarVehiculo(int numsec, String numplaca){
         for (int i = 4+numsec; 0 < i; i--) {
@@ -357,8 +339,51 @@ public class Parqueadero {
             }
     }
     
-    public void cuentaTiempo(int numsec, String numplaca){
+    public void MostrarSeccion(){
+        Scanner leer= new Scanner(System.in);
+        System.out.println("¿Cual seccion desea conocer?");
+        int zona = leer.nextInt();
+        //zona -= 1;
+        switch(zona){
+            case 1:
+                for(int i = 0; i<5; i++){
+                  if (this.seccion[i][0] != null){
+                      System.out.println(this.seccion[i][0].getVehiculo().getPlacas());
+                  }
+                }
+                break;
+            case 2:
+                for(int i = 0; i<5; i++){
+                  if (this.seccion[i][1] != null){
+                      System.out.println(this.seccion[i][1].getVehiculo().getPlacas());
+                  }
+                }
+                break;
+            case 3:
+                for(int i = 0; i<5; i++){
+                  if (this.seccion[i][2] != null){
+                      System.out.println(this.seccion[i][2].getVehiculo().getPlacas());
+                  }
+                }
+                break;
+            default:
+                System.out.println("Opcion no valida");
+        }
         
+    }
+    
+    public void cuentaTiempo(int numsec, String numplaca, double costoMinuto){
+        for(int i = 0;i < 5;i++){
+            if(this.seccion[i][numsec] != null){
+                if(this.seccion[i][numsec].getVehiculo().getPlacas().equals(numplaca)){
+                    int minutos = this.seccion[i][numsec].getVehiculo().getIngreso().getHora()*60;
+                    minutos += this.seccion[i][numsec].getVehiculo().getIngreso().getMinutos();
+                    double pago = minutos*costoMinuto;
+                    this.ingreso += pago;
+                    System.out.println("El total a pagar es: "+ pago);
+                }
+            }
+        }
     }
 }
 
