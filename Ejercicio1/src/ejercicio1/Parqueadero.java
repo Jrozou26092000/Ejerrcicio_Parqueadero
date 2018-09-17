@@ -366,8 +366,6 @@ public class Parqueadero {
                   }
                 }
                 break;
-            case 0:
-            break;
             default:
                 System.out.println("Opcion no valida");
         }
